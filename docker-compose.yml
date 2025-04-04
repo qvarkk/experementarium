@@ -7,7 +7,7 @@ services:
       - ./:/var/www/
       - ./_docker/nginx/conf.d/:/etc/nginx/conf.d/
     depends_on:
-      - app
+      - experementarium
     container_name: experementarium_nginx
 
   experementarium:
