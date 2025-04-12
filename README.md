@@ -2,6 +2,7 @@
 ### Вместо ???? выбрать prod или dev
 
 ```
+$ chmod 777 storage -R
 $ docker-compose -f docker-compose.????.yml up -d
 ```
 ### После чего необходимо подключиться к контейнеру приложения
