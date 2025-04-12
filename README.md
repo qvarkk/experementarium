@@ -1,8 +1,8 @@
-# Установка
+# Запуск
+### Вместо ???? выбрать prod или dev
+
 ```
-$ cp .env.example .env
-$ composer install
-$ docker-compose up -d
+$ docker-compose -f docker-compose.????.yml up -d
 ```
 ### После чего необходимо подключиться к контейнеру приложения
 
@@ -12,12 +12,10 @@ $ docker exec -it exp bash
 
 ### После подключения выполнить следующие команды
 ```
-$ php artisan key:generate
+$ composer install
 $ npm install
-```
-
-# Запуск
-### Тоже выполнять внутри контейнера
-```
-$ npx vite --host
+$ npm run build
+$ cp .env.example .env
+$ php artisan key:generate
+$ php artisan migrate:fresh --seed
 ```

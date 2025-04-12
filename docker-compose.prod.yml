@@ -2,24 +2,35 @@ services:
   nginx:
     image: nginx:latest
     ports:
-      - 80:80
+      - "80:80"
     volumes:
-      - ./:/var/www/
+      - ./public:/var/www/public
       - ./_docker/nginx/conf.d/:/etc/nginx/conf.d/
     depends_on:
       - exp
+    networks:
+      - exp_network
     container_name: exp_nginx
 
   exp:
     build:
       context: .
-      dockerfile: ./_docker/app/Dockerfile
+      dockerfile: ./_docker/app/Dockerfile.prod
+    expose:
+      - "9090"
     ports:
-      - 5173:5173
+      - "5173:5173"
     volumes:
       - ./:/var/www/
+    environment:
+      DB_HOST: db
+      DB_NAME: experimentarium
+      DB_USER: postgres
+      DB_PASSWORD: password
     depends_on:
       - db
+    networks:
+      - exp_network
     container_name: exp
 
   db:
@@ -31,5 +42,11 @@ services:
       POSTGRES_DB: experimentarium
       POSTGRES_PASSWORD: password
     ports:
-      - 5432:5432
+      - "5432:5432"
+    networks:
+      - exp_network
     container_name: exp_db
+  
+networks:
+  exp_network:
+    driver: bridge
