@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('lab_step_reagents', function (Blueprint $table) {
+        Schema::create('step_actions_reagents', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('step_action_id');
             $table->foreign('step_action_id')->references('id')->on('step_actions');
