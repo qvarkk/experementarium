@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreign('lab_id')->references('id')->on('labs');
             $table->bigInteger('step_number');
             $table->string('instructions');
+
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

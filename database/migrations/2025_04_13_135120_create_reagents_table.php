@@ -20,6 +20,8 @@ return new class extends Migration
             $table->bigInteger('concentration')->nullable();
             $table->index('name');
             $table->index('formula');
+
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

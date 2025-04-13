@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('purpose');
             $table->string('safety_rules');
             $table->string('theoretical_basis');
+
+            $table->timestamps();
         });
     }
 

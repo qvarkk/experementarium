@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('lab_actions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

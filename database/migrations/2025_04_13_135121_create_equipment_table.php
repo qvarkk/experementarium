@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->index('name');
+
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();
