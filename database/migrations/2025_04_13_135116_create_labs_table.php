@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('labs', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('purpose');
-            $table->string('safety_rules');
-            $table->string('theoretical_basis');
+            $table->string('purpose', 1024);
+            $table->string('safety_rules', 2048);
+            $table->string('theoretical_basis', 4096);
 
             $table->timestamps();
         });
