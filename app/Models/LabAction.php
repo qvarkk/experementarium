@@ -9,8 +9,4 @@ class LabAction extends Model
 {
     protected $guarded = false;
     protected $table = 'lab_actions';
-
-    public function step_actions(): HasMany {
-        return $this->hasMany(StepAction::class, 'lab_action_id', 'id');
-    }
 }
