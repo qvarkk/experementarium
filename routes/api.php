@@ -18,4 +18,12 @@ Route::namespace('App\\Http\\Controllers\\Api')->group(function () {
         Route::patch('/equipment/{equipment}', UpdateController::class)->name('api.equipment.update');
         Route::delete('/equipment/{equipment}', DestroyController::class)->name('api.equipment.destroy');
     });
+
+    Route::namespace('Reagent')->group(function () {
+        Route::get('/reagents', IndexController::class)->name('api.equipment.index');
+        Route::get('/reagents/{reagent}', ShowController::class)->name('api.reagents.show');
+        Route::post('/reagents', StoreController::class)->name('api.reagents.store');
+        Route::patch('/reagents/{reagent}', UpdateController::class)->name('api.reagents.update');
+        Route::delete('/reagents/{reagent}', DestroyController::class)->name('api.reagents.destroy');
+    });
 });
