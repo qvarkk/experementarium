@@ -20,10 +20,18 @@ Route::namespace('App\\Http\\Controllers\\Api')->group(function () {
     });
 
     Route::namespace('Reagent')->group(function () {
-        Route::get('/reagents', IndexController::class)->name('api.equipment.index');
-        Route::get('/reagents/{reagent}', ShowController::class)->name('api.reagents.show');
-        Route::post('/reagents', StoreController::class)->name('api.reagents.store');
-        Route::patch('/reagents/{reagent}', UpdateController::class)->name('api.reagents.update');
-        Route::delete('/reagents/{reagent}', DestroyController::class)->name('api.reagents.destroy');
+        Route::get('/reagents', IndexController::class)->name('api.reagent.index');
+        Route::get('/reagents/{reagent}', ShowController::class)->name('api.reagent.show');
+        Route::post('/reagents', StoreController::class)->name('api.reagent.store');
+        Route::patch('/reagents/{reagent}', UpdateController::class)->name('api.reagent.update');
+        Route::delete('/reagents/{reagent}', DestroyController::class)->name('api.reagent.destroy');
+    });
+
+    Route::namespace('Lab')->group(function () {
+        Route::get('/labs', IndexController::class)->name('api.lab.index');
+        Route::get('/labs/{lab}', ShowController::class)->name('api.lab.show');
+        Route::post('/labs', StoreController::class)->name('api.lab.store');
+        Route::patch('/labs/{lab}', UpdateController::class)->name('api.lab.update');
+        Route::delete('/labs/{lab}', DestroyController::class)->name('api.lab.destroy');
     });
 });
