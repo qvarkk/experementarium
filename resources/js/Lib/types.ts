@@ -1,23 +1,28 @@
-export type Equipment = {
-  id: number,
-  name: string,
+export interface APIResponse<T> {
+    data: T[];
 }
 
-export type Reagent = {
-  id: number,
-  name: string,
-  concentration: number,
+export interface Equipment {
+    id: number;
+    name: string;
 }
 
-export type PourAction = {
-  reagent: Reagent,
-  destination_equipment: {
-    equipment: Equipment,
-    possible_insides: [Reagent | object][],
-  },
-};
+export interface Reagent {
+    id: number;
+    name: string;
+    formula: string;
+    concentration: number | null;
+}
 
-export type MixAction = {
-  equipment: Equipment,
-  reagents: Reagent[],
-};
+export interface PourAction {
+    reagent: Reagent;
+    destination_equipment: {
+        equipment: Equipment;
+        possible_insides: [Reagent | object][];
+    };
+}
+
+export interface MixAction {
+    equipment: Equipment;
+    reagents: Reagent[];
+}
