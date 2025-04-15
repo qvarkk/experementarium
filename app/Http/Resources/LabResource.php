@@ -20,8 +20,18 @@ class LabResource extends JsonResource
             'purpose' => $this->purpose,
             'safety_rules' => $this->safety_rules,
             'theoretical_basis' => $this->theoretical_basis,
-            'reagents' => ReagentResource::collection($this->reagents()->get()),
-            'equipment' => EquipmentResource::collection($this->equipment()->get()),
+            'reagents' => $this->reagents->map(function ($reagent) {
+                return [
+                    'reagent' => new ReagentResource($reagent),
+                    'quantity' => $reagent->pivot->quantity
+                ];
+            }),
+            'equipment' => $this->equipment->map(function ($equipment) {
+                return [
+                    'equipment' => new ReagentResource($equipment),
+                    'quantity' => $equipment->pivot->quantity
+                ];
+            }),
         ];
     }
 }

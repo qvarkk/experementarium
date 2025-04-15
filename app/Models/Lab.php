@@ -12,11 +12,11 @@ class Lab extends Model
     protected $table = 'labs';
 
     public function reagents(): BelongsToMany {
-        return $this->belongsToMany(Reagent::class, 'labs_reagents', 'lab_id', 'reagent_id');
+        return $this->belongsToMany(Reagent::class, 'labs_reagents', 'lab_id', 'reagent_id')->withPivot('quantity');
     }
 
     public function equipment(): BelongsToMany {
-        return $this->belongsToMany(Equipment::class, 'labs_equipment', 'lab_id', 'equipment_id');
+        return $this->belongsToMany(Equipment::class, 'labs_equipment', 'lab_id', 'equipment_id')->withPivot('quantity');
     }
 
     public function tags(): BelongsToMany {

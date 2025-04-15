@@ -7,6 +7,7 @@ export interface IdWithQuantity {
     quantity: number;
 }
 
+
 export interface Equipment {
     id: number;
     name: string;
@@ -16,6 +17,7 @@ export interface EquipmentWithQuantity {
     equipment: Equipment;
     quantity: number;
 }
+
 
 export interface Reagent {
     id: number;
@@ -29,15 +31,25 @@ export interface ReagentWithQuantity {
     quantity: number;
 }
 
+
 export interface Lab {
     id: number;
     title: string;
     purpose: string;
     safety_rules: string;
     theoretical_basis: string;
-    reagents: IdWithQuantity[],
-    equipment: IdWithQuantity[]
 }
+
+export interface LabGetDTO extends Lab {
+    reagents: ReagentWithQuantity[];
+    equipment: EquipmentWithQuantity[];
+}
+
+export interface LabCreateDTO extends Lab {
+    reagents: IdWithQuantity[];
+    equipment: IdWithQuantity[];
+}
+
 
 export interface PourAction {
     reagent: Reagent;
