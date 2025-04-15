@@ -42,4 +42,12 @@ Route::namespace('App\\Http\\Controllers\\Api')->group(function () {
         Route::patch('/lab-actions/{lab_action}', UpdateController::class)->name('api.lab_action.update');
         Route::delete('/lab-actions/{lab_action}', DestroyController::class)->name('api.lab_action.destroy');
     });
+
+    Route::namespace('LabStep')->group(function () {
+        Route::get('/lab-steps', IndexController::class)->name('api.lab_step.index');
+        Route::get('/lab-steps/{lab_step}', ShowController::class)->name('api.lab_step.show');
+        Route::post('/lab-steps', StoreController::class)->name('api.lab_step.store');
+        Route::patch('/lab-steps/{lab_step}', UpdateController::class)->name('api.lab_step.update');
+        Route::delete('/lab-steps/{lab_step}', DestroyController::class)->name('api.lab_step.destroy');
+    });
 });

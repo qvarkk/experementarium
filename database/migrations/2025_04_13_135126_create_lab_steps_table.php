@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger('lab_id');
             $table->foreign('lab_id')->references('id')->on('labs');
             $table->bigInteger('step_number');
-            $table->string('instructions');
+            $table->string('instructions', 1024);
             $table->json('actions_json');
 
             $table->timestamps();
