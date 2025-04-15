@@ -14,7 +14,12 @@ class UpdateController extends BaseController
     public function __invoke(UpdateRequest $request, Lab $lab)
     {
         $data = $request->validated();
-        $lab->update($data);
-        return new LabResource($lab->fresh());
+        $lab = $this->service->update($lab, $data);
+
+        if ($lab instanceof Lab) {
+            return new LabResource($lab);
+        }
+
+        return response()->json($lab, 500);
     }
 }

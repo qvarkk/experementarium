@@ -15,6 +15,11 @@ class StoreController extends BaseController
     {
         $data = $request->validated();
         $lab = $this->service->store($data);
-        return new LabResource($lab);
+
+        if ($lab instanceof Lab) {
+            return new LabResource($lab);
+        }
+
+        return response()->json($lab, 500);
     }
 }
