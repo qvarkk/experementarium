@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Api\Lab;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Lab\StoreRequest;
 use App\Http\Resources\LabResource;
 use App\Models\Lab;
 
-class StoreController extends Controller
+class StoreController extends BaseController
 {
     /**
      * Handle the incoming request.
@@ -15,7 +14,7 @@ class StoreController extends Controller
     public function __invoke(StoreRequest $request)
     {
         $data = $request->validated();
-        $lab = Lab::firstOrCreate($data);
+        $lab = $this->service->store($data);
         return new LabResource($lab);
     }
 }

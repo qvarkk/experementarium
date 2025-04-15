@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Api\Lab;
 
-use App\Http\Controllers\Controller;
 use App\Http\Resources\LabResource;
 use App\Models\Lab;
 
-class ShowController extends Controller
+class ShowController extends BaseController
 {
     /**
      * Handle the incoming request.

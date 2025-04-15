@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Api\Lab;
 
-use App\Http\Controllers\Controller;
 use App\Models\Lab;
 
-class DestroyController extends Controller
+class DestroyController extends BaseController
 {
     /**
      * Handle the incoming request.
