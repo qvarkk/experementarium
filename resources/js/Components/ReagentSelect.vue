@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import {getReagents} from "../Api/Services/reagentService.js";
 import {ref} from "vue";
-import type {Reagent} from "../Lib/types";
-
-interface ReagentWithQuantity {
-    reagent: Reagent;
-    quantity: number;
-}
+import type {Reagent, ReagentWithQuantity} from "../Lib/types";
 
 const props = defineProps<{
     modelValue: ReagentWithQuantity[];

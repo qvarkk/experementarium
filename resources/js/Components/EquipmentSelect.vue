@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import {ref} from "vue";
-import type {Equipment} from "../Lib/types";
+import type {Equipment, EquipmentWithQuantity} from "../Lib/types";
 import {getAllEquipment} from "../Api/Services/equipmentService";
-
-interface EquipmentWithQuantity {
-    equipment: Equipment;
-    quantity: number;
-}
 
 const props = defineProps<{
     modelValue: EquipmentWithQuantity[];

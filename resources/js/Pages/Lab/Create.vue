@@ -2,6 +2,9 @@
 import ReagentSelect from "../../Components/ReagentSelect.vue";
 import EquipmentSelect from "../../Components/EquipmentSelect.vue";
 import {ref} from "vue";
+import {createLab} from "../../Api/Services/labService";
+import {EquipmentWithQuantity, ReagentWithQuantity} from "../../Lib/types";
+import {formToJSON} from "axios";
 
 type MainLabInformation = {
     title: string,
@@ -17,13 +20,18 @@ const mainLabInformation = ref<MainLabInformation>({
     safety_rules: "",
     theoretical_basis: "",
 });
-const selectedReagents = ref<any[]>([]);
-const selectedEquipment = ref<any[]>([]);
+const selectedReagents = ref<ReagentWithQuantity[]>([]);
+const selectedEquipment = ref<EquipmentWithQuantity[]>([]);
 
 const handleSubmit = () => {
-    console.log("Form submitted", mainLabInformation.value);
-    console.log("Reagents", selectedReagents.value);
-    console.log("Equipment", selectedEquipment.value);
+    createLab({
+        title: mainLabInformation.value.title,
+        purpose: mainLabInformation.value.purpose,
+        safety_rules: mainLabInformation.value.safety_rules,
+        theoretical_basis: mainLabInformation.value.theoretical_basis,
+        reagents: selectedReagents.value.map(item => ({ id: item.reagent.id, quantity: item.quantity })),
+        equipment: selectedEquipment.value.map(item => ({ id: item.equipment.id, quantity: item.quantity })),
+    });
 };
 </script>
 
