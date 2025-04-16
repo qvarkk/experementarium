@@ -28,7 +28,7 @@ class LabResource extends JsonResource
             }),
             'equipment' => $this->equipment->map(function ($equipment) {
                 return [
-                    'equipment' => new ReagentResource($equipment),
+                    'equipment' => new EquipmentResource($equipment),
                     'quantity' => $equipment->pivot->quantity
                 ];
             }),

@@ -23,6 +23,7 @@ const mainLabInformation = ref<MainLabInformation>({
 const selectedReagents = ref<ReagentWithQuantity[]>([]);
 const selectedEquipment = ref<EquipmentWithQuantity[]>([]);
 
+// TODO: figure out why quantity is always 1 after adding new lab
 const handleSubmit = () => {
     createLab({
         title: mainLabInformation.value.title,
