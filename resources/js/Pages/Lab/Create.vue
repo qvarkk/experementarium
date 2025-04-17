@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import ReagentSelect from "../../Components/ReagentSelect.vue";
-import EquipmentSelect from "../../Components/EquipmentSelect.vue";
+import ReagentSelect from "../../Components/Selects/ReagentSelect.vue";
+import EquipmentSelect from "../../Components/Selects/EquipmentSelect.vue";
 import {ref} from "vue";
 import {createLab} from "../../Api/Services/labService";
 import {EquipmentWithQuantity, ReagentWithQuantity} from "../../Lib/types";
