@@ -99,6 +99,7 @@ const selectedEquipment = ref<EquipmentWithQuantity[]>([]);
 const addedSteps = ref<Omit<LabStep, "id"|"lab">[]>([]);
 
 const handleSubmit = () => {
+
     router.post(props.store_url, {
         title: mainLabInformation.value.title,
         purpose: mainLabInformation.value.purpose,
@@ -106,6 +107,10 @@ const handleSubmit = () => {
         theoretical_basis: mainLabInformation.value.theoretical_basis,
         reagents: selectedReagents.value.map(item => ({id: item.reagent.id, quantity: item.quantity})),
         equipment: selectedEquipment.value.map(item => ({id: item.equipment.id, quantity: item.quantity})),
+        steps: addedSteps.value.map((step) => ({
+            ...step,
+            actions_json: JSON.stringify(step.actions_json)
+        }))
     });
 };
 </script>

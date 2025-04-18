@@ -34,6 +34,10 @@ class StoreRequest extends FormRequest
             'equipment.*' => ['array'],
             'equipment.*.id' => ['required', 'integer', 'exists:equipment,id'],
             'equipment.*.quantity' => ['required', 'integer', 'min:1', 'max:100'],
+            'steps' => ['array'],
+            'steps.*.instructions' => ['required', 'string', 'max:1024'],
+            'steps.*.step_number' => ['required', 'integer', 'min:1', 'max:100'],
+            'steps.*.actions_json' => ['json'],
         ];
     }
 
@@ -82,6 +86,17 @@ class StoreRequest extends FormRequest
             'equipment.*.quantity.integer' => 'Количество оборудования должно быть целым числом',
             'equipment.*.quantity.min' => 'Минимальное количество оборудования - 1',
             'equipment.*.quantity.max' => 'Максимальное количество оборудования - 100',
+
+            // Steps messages
+            'steps.array' => 'Шаги должны быть представлены массивом',
+            'steps.*.instructions.required' => 'Инструкции шага обязательны для заполнения',
+            'steps.*.instructions.string' => 'Инструкции шага должны быть строкой',
+            'steps.*.instructions.max' => 'Инструкции шага не должны превышать 1024 символов',
+            'steps.*.step_number.required' => 'Номер шага обязателен для заполнения',
+            'steps.*.step_number.number' => 'Номер шага должен быть числом',
+            'steps.*.step_number.min' => 'Номер шага должен быть не менее 1',
+            'steps.*.step_number.max' => 'Номер шага должен быть не более 100',
+            'steps.*.actions_json.json' => 'Действия шага должны быть представлены JSON',
         ];
     }
 }

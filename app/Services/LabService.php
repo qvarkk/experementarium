@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Lab;
+use App\Models\LabStep;
 use Illuminate\Support\Facades\DB;
 
 class LabService
@@ -12,15 +13,23 @@ class LabService
         try {
             DB::beginTransaction();
 
-            $reagent_ids = $this->extractIdsAndQuantity($data['reagents']);
+            $reagent_ids = $this->extractIdsAndQuantity($data['reagents'] ?? []);
             unset($data['reagents']);
 
-            $equipment_ids = $this->extractIdsAndQuantity($data['equipment']);
+            $equipment_ids = $this->extractIdsAndQuantity($data['equipment'] ?? []);
             unset($data['equipment']);
+
+            $steps = $data['steps'] ?? [];
+            unset($data['steps']);
 
             $lab = Lab::create($data);
             $lab->reagents()->sync($reagent_ids);
             $lab->equipment()->sync($equipment_ids);
+
+            foreach ($steps as $step) {
+                $step['lab_id'] = $lab->id;
+                LabStep::create($step);
+            }
 
             DB::commit();
         } catch (\Exception $e) {
