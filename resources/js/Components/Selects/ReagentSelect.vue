@@ -1,20 +1,13 @@
 <script setup lang="ts">
-import {getReagents} from "../../Api/Services/reagentService.js";
 import {ref} from "vue";
 import type {Reagent, ReagentWithQuantity} from "../../Lib/types";
 
 const props = defineProps<{
     modelValue: ReagentWithQuantity[];
+    reagents: Reagent[];
 }>();
 
 const emit = defineEmits(['update:modelValue']);
-
-const isLoading = ref<boolean>(true);
-const reagents = ref<Reagent[]>([]);
-getReagents().then(res => {
-    isLoading.value = false;
-    reagents.value = res.data.data;
-});
 
 const selectedReagents = ref<ReagentWithQuantity[]>(props.modelValue || []);
 const reagentSelect = ref<HTMLSelectElement | null>(null);
@@ -28,7 +21,7 @@ const addReagentToList = () => {
     );
 
     if (!alreadyExists) {
-        const foundReagent = reagents.value.find(
+        const foundReagent = props.reagents.find(
             el => el.id.toString() === selectedId
         );
 
@@ -73,11 +66,7 @@ const removeReagent = (id: number) => {
             </button>
         </div>
 
-        <div v-if="isLoading" class="border-1 px-2 py-1">
-            Загрузка...
-            <!-- // TODO: create loader component-->
-        </div>
-        <div class="flex gap-2" v-else>
+        <div class="flex gap-2">
             <select
                 ref="reagentSelect"
                 class="border-1 px-2 py-1 flex-1"

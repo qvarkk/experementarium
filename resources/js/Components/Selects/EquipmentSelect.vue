@@ -5,16 +5,10 @@ import {getAllEquipment} from "../../Api/Services/equipmentService";
 
 const props = defineProps<{
     modelValue: EquipmentWithQuantity[];
+    equipment: Equipment[];
 }>();
 
 const emit = defineEmits(['update:modelValue']);
-
-const isLoading = ref<boolean>(true);
-const equipment = ref<Equipment[]>([]);
-getAllEquipment().then(res => {
-    isLoading.value = false;
-    equipment.value = res.data.data;
-});
 
 const selectedEquipment = ref<EquipmentWithQuantity[]>(props.modelValue || []);
 const equipmentSelect = ref<HTMLSelectElement | null>(null);
@@ -28,7 +22,7 @@ const addEquipmentToList = () => {
     );
 
     if (!alreadyExists) {
-        const foundEquipment = equipment.value.find(
+        const foundEquipment = props.equipment.find(
             el => el.id.toString() === selectedId
         );
 
@@ -73,11 +67,7 @@ const removeEquipment = (id: number) => {
             </button>
         </div>
 
-        <div v-if="isLoading" class="border-1 px-2 py-1">
-            Загрузка...
-            <!-- // TODO: create loader component-->
-        </div>
-        <div class="flex gap-2" v-else>
+        <div class="flex gap-2">
             <select
                 ref="equipmentSelect"
                 class="border-1 px-2 py-1 flex-1"

@@ -1,42 +1,5 @@
-<script setup lang="ts">
-import ReagentSelect from "../../Components/Selects/ReagentSelect.vue";
-import EquipmentSelect from "../../Components/Selects/EquipmentSelect.vue";
-import {ref} from "vue";
-import {createLab} from "../../Api/Services/labService";
-import {EquipmentWithQuantity, ReagentWithQuantity} from "../../Lib/types";
-import {formToJSON} from "axios";
-
-type MainLabInformation = {
-    title: string,
-    purpose: string,
-    safety_rules: string,
-    theoretical_basis: string
-}
-
-
-const mainLabInformation = ref<MainLabInformation>({
-    title: "",
-    purpose: "",
-    safety_rules: "",
-    theoretical_basis: "",
-});
-const selectedReagents = ref<ReagentWithQuantity[]>([]);
-const selectedEquipment = ref<EquipmentWithQuantity[]>([]);
-
-// TODO: figure out why quantity is always 1 after adding new lab
-const handleSubmit = () => {
-    createLab({
-        title: mainLabInformation.value.title,
-        purpose: mainLabInformation.value.purpose,
-        safety_rules: mainLabInformation.value.safety_rules,
-        theoretical_basis: mainLabInformation.value.theoretical_basis,
-        reagents: selectedReagents.value.map(item => ({ id: item.reagent.id, quantity: item.quantity })),
-        equipment: selectedEquipment.value.map(item => ({ id: item.equipment.id, quantity: item.quantity })),
-    });
-};
-</script>
-
 <template>
+    <Head title="Создание лабораторной работы"/>
     <form @submit.prevent="handleSubmit" class="flex flex-col gap-3 p-5">
         <section>
             <span class="font-bold">Основная информация</span>
@@ -49,6 +12,7 @@ const handleSubmit = () => {
                     v-model="mainLabInformation.title"
                     required
                 >
+                <span v-if="errors.title" class="text-red-600 font-bold">{{ errors.title }}</span>
             </div>
             <div class="flex flex-col">
                 <label for="purposeInput">Цель работы</label>
@@ -59,6 +23,7 @@ const handleSubmit = () => {
                     v-model="mainLabInformation.purpose"
                     required
                 >
+                <span v-if="errors.purpose" class="text-red-600 font-bold">{{ errors.purpose }}</span>
             </div>
             <div class="flex flex-col">
                 <label for="safetyInput">Техника безопасности</label>
@@ -68,6 +33,7 @@ const handleSubmit = () => {
                     v-model="mainLabInformation.safety_rules"
                     required
                 ></textarea>
+                <span v-if="errors.safety_rules" class="text-red-600 font-bold">{{ errors.safety_rules }}</span>
             </div>
             <div class="flex flex-col">
                 <label for="theoryInput">Теоретический базис</label>
@@ -77,22 +43,66 @@ const handleSubmit = () => {
                     v-model="mainLabInformation.theoretical_basis"
                     required
                 ></textarea>
+                <span v-if="errors.theoretical_basis" class="text-red-600 font-bold">{{ errors.theoretical_basis }}</span>
             </div>
         </section>
 
         <section>
-            <ReagentSelect v-model="selectedReagents"/>
+            <ReagentSelect v-model="selectedReagents" :reagents="reagents"/>
         </section>
 
         <section>
-            <EquipmentSelect v-model="selectedEquipment"/>
+            <EquipmentSelect v-model="selectedEquipment" :equipment="equipment"/>
         </section>
 
+        <span v-if="errors.message" class="text-red-600 font-bold">{{ errors.message }}</span>
         <button type="submit" class="bg-[#55ff55] p-3 cursor-pointer hover:bg-[#44ee44]">
             Создать
         </button>
     </form>
 </template>
+
+<script setup lang="ts">
+import {router, Head} from "@inertiajs/vue3";
+import ReagentSelect from "../../Components/Selects/ReagentSelect.vue";
+import EquipmentSelect from "../../Components/Selects/EquipmentSelect.vue";
+import {Equipment, EquipmentWithQuantity, Reagent, ReagentWithQuantity} from "../../Lib/types";
+import {ref} from "vue";
+
+const props = defineProps<{
+    reagents: Reagent[];
+    equipment: Equipment[];
+    store_url: string;
+    errors: Object;
+}>();
+
+type MainLabInformation = {
+    title: string,
+    purpose: string,
+    safety_rules: string,
+    theoretical_basis: string
+}
+
+const mainLabInformation = ref<MainLabInformation>({
+    title: "",
+    purpose: "",
+    safety_rules: "",
+    theoretical_basis: "",
+});
+const selectedReagents = ref<ReagentWithQuantity[]>([]);
+const selectedEquipment = ref<EquipmentWithQuantity[]>([]);
+
+const handleSubmit = () => {
+    router.post(props.store_url, {
+        title: mainLabInformation.value.title,
+        purpose: mainLabInformation.value.purpose,
+        safety_rules: mainLabInformation.value.safety_rules,
+        theoretical_basis: mainLabInformation.value.theoretical_basis,
+        reagents: selectedReagents.value.map(item => ({id: item.reagent.id, quantity: item.quantity})),
+        equipment: selectedEquipment.value.map(item => ({id: item.equipment.id, quantity: item.quantity})),
+    });
+};
+</script>
 
 <style scoped>
 </style>

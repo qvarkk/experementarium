@@ -1,5 +1,25 @@
-export interface APIResponse<T> {
+export interface Paginated<T> {
     data: T[];
+    links: {
+        first: string;
+        last: string;
+        next: string | null;
+        prev: string | null;
+    };
+    meta: {
+        current_page: int;
+        from: int;
+        last_page: int;
+        links: {
+            url: string | null,
+            active: bool,
+            label: string,
+        }[];
+        path: string;
+        per_page: int;
+        to: int;
+        total: int;
+    }
 }
 
 export interface IdWithQuantity {
