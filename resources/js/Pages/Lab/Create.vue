@@ -55,6 +55,10 @@
             <EquipmentSelect v-model="selectedEquipment" :equipment="equipment"/>
         </section>
 
+        <section>
+            <StepsInput v-model="addedSteps" :equipment="equipment" :reagents="reagents" :available-action-types="[{ id: 1, name: 'Налить' }, { id: 2, name: 'Смешать' }]" />
+        </section>
+
         <span v-if="errors.message" class="text-red-600 font-bold">{{ errors.message }}</span>
         <button type="submit" class="bg-[#55ff55] p-3 cursor-pointer hover:bg-[#44ee44]">
             Создать
@@ -66,8 +70,9 @@
 import {router, Head} from "@inertiajs/vue3";
 import ReagentSelect from "../../Components/Selects/ReagentSelect.vue";
 import EquipmentSelect from "../../Components/Selects/EquipmentSelect.vue";
-import {Equipment, EquipmentWithQuantity, Reagent, ReagentWithQuantity} from "../../Lib/types";
+import {Equipment, EquipmentWithQuantity, type LabStep, Reagent, ReagentWithQuantity} from "../../Lib/types";
 import {ref} from "vue";
+import StepsInput from "../../Components/StepsInput/StepsInput.vue";
 
 const props = defineProps<{
     reagents: Reagent[];
@@ -91,6 +96,7 @@ const mainLabInformation = ref<MainLabInformation>({
 });
 const selectedReagents = ref<ReagentWithQuantity[]>([]);
 const selectedEquipment = ref<EquipmentWithQuantity[]>([]);
+const addedSteps = ref<Omit<LabStep, "id"|"lab">[]>([]);
 
 const handleSubmit = () => {
     router.post(props.store_url, {

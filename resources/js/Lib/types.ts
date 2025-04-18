@@ -22,11 +22,6 @@ export interface Paginated<T> {
     }
 }
 
-export interface IdWithQuantity {
-    id: number;
-    quantity: number;
-}
-
 
 export interface Equipment {
     id: number;
@@ -60,26 +55,40 @@ export interface Lab {
     theoretical_basis: string;
 }
 
-export interface LabGetDTO extends Lab {
-    reagents: ReagentWithQuantity[];
-    equipment: EquipmentWithQuantity[];
+export interface LabAction {
+    id: number;
+    name: 'Налить' | 'Смешать';
 }
 
-export interface LabCreateDTO extends Lab {
-    reagents: IdWithQuantity[];
-    equipment: IdWithQuantity[];
+export interface LabStep {
+    id: number;
+    lab: Lab;
+    step_number: number;
+    instructions: string;
+    actions_json: Action[];
 }
 
+type Action = PourAction | MixAction;
 
-export interface PourAction {
+export interface PourAction extends Action {
+    lab_action: LabAction & { name: 'Налить' };
     reagent: Reagent;
     destination_equipment: {
         equipment: Equipment;
-        possible_insides: [Reagent | object][];
+        possible_insides: (Reagent | {})[];
     };
 }
 
-export interface MixAction {
+export interface MixAction extends Action {
+    lab_action: LabAction & { name: 'Смешать' };
     equipment: Equipment;
     reagents: Reagent[];
+}
+
+export function isPourAction(action: Action): action is PourAction {
+    return action.lab_action.name === 'Налить';
+}
+
+export function isMixAction(action: Action): action is MixAction {
+    return action.lab_action.name === 'Смешать';
 }
