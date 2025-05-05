@@ -1,25 +1,97 @@
+<script setup lang="ts">
+    import { ref, onMounted, onUnmounted } from 'vue';
+
+    const navItems = [
+        { id: 'home', title: 'Главная' },
+        { id: 'about', title: 'О нас' },
+        { id: 'video', title: 'Видеобзор' },
+        { id: 'contact', title: 'Контакты' },
+    ];
+
+    const activeSection = ref(navItems[0].id);
+
+    const scrollToSection = (sectionId) => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+            });
+        }
+    };
+
+        // Определение активной секции при скролле
+    const handleScroll = () => {
+        const scrollPosition = window.scrollY + 100;
+        
+        navItems.forEach((item) => {
+            const section = document.getElementById(item.id);
+            if (!section) return;
+            
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                activeSection.value = item.id;
+            }
+        });
+    };
+
+    onMounted(() => {
+        window.addEventListener('scroll', handleScroll);
+        handleScroll(); // Инициализация при загрузке
+    });
+
+    onUnmounted(() => {
+        window.removeEventListener('scroll', handleScroll);
+    });
+</script>
+
 <template>
-    <header class="bg-white shadow-sm">
-        <div class="container mx-auto px-4 py-6 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-green-600" fill="none"
-                     viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
-                </svg>
-                <h1 class="text-2xl font-bold text-gray-800">ЛабЗавр</h1>
-            </div>
-            <nav>
-                <ul class="flex space-x-6">
-                    <li><a href="#" class="text-gray-600 hover:text-green-600">Главная</a></li>
-                    <li><a href="#" class="text-gray-600 hover:text-green-600">О проекте</a></li>
-                    <li><a href="#" class="text-gray-600 hover:text-green-600">Контакты</a></li>
-                </ul>
-            </nav>
-        </div>
+    <header>
+        <v-container>
+            <v-row>
+                <v-col>
+                    Lab.Zavr
+                </v-col>
+                <v-col>
+                    <v-btn-toggle
+                         v-model="activeSection"
+                         group
+                    >
+                        <v-btn 
+                            rounded="xl"
+                            density="compact"
+                            v-for="item in navItems" 
+                            :key="item.id"
+                            :value="item.id"
+                            @click="scrollToSection(item.id)"
+                        >
+                            {{ item.title }}
+                        </v-btn>
+                    </v-btn-toggle>
+                </v-col>
+            </v-row>
+        </v-container>
     </header>
 </template>
 
-<script setup lang="ts">
+<style scoped>
+    /* Активная кнопка */
+    .v-btn-toggle .v-btn.v-btn--active {
+        background-color: black !important;  /* Красный */
+        color: white !important;
+    }
 
-</script>
+    /* Неактивная кнопка */
+    .v-btn-toggle .v-btn:not(.v-btn--active) {
+        background-color: white !important;
+        color: black !important;
+    }
+
+    /* Ховер */
+    .v-btn-toggle .v-btn:hover {
+        background-color: black !important;
+        color: white !important;
+    }
+</style>
