@@ -4,7 +4,7 @@
     const navItems = [
         { id: 'home', title: 'Главная' },
         { id: 'about', title: 'О нас' },
-        { id: 'video', title: 'Видеобзор' },
+        { id: 'video', title: 'Видеообзор' },
         { id: 'contact', title: 'Контакты' },
     ];
 
@@ -13,9 +13,9 @@
     const scrollToSection = (sectionId) => {
         const section = document.getElementById(sectionId);
         if (section) {
-            section.scrollIntoView({ 
-            behavior: 'smooth',
-            block: 'start'
+                section.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
             });
         }
     };
@@ -51,17 +51,19 @@
     <header>
         <v-container>
             <v-row>
-                <v-col>
+                <v-col class="montserrat-600">
                     Lab.Zavr
                 </v-col>
-                <v-col>
+                <v-col class="montserrat-400">
                     <v-btn-toggle
                          v-model="activeSection"
                          group
+                         class="border-md rounded-xl px-10"
                     >
                         <v-btn 
                             rounded="xl"
                             density="compact"
+                            class="text-none"
                             v-for="item in navItems" 
                             :key="item.id"
                             :value="item.id"

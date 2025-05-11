@@ -1,1 +1,20 @@
 /* @import "tailwindcss"; */
+    .alegreya-sc-regular {
+        font-family: "Alegreya SC", serif !important;
+        font-weight: 400 !important;
+        font-style: normal !important;
+    }
+
+    .montserrat-400 {
+    font-family: "Montserrat", sans-serif !important;
+    font-optical-sizing: auto !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+  }
+  
+  .montserrat-600 {
+    font-family: "Montserrat", sans-serif !important;
+    font-optical-sizing: auto !important;
+    font-weight: 600 !important;
+    font-style: normal !important;
+  }
