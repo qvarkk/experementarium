@@ -38,6 +38,7 @@ const canvasStyle = ref({
 })
 
 let unityInstance = null
+const loadingProgress = ref(0)
 let originalWidth = 960 // Your game's original width
 let originalHeight = 600 // Your game's original height
 
