@@ -85,9 +85,9 @@ async function loadUnity() {
     unityInstance = await createUnityInstance(
       unityCanvas.value,
       {
-        dataUrl: '/game-build/labzavr.data',
-        frameworkUrl: '/game-build/labzavr.framework.js',
-        codeUrl: '/game-build/labzavr.wasm',
+        dataUrl: '/game-build/labzavr.data.br',
+        frameworkUrl: '/game-build/labzavr.framework.js.br',
+        codeUrl: '/game-build/labzavr.wasm.br',
         // ... other config ...
       },
       (progress) => {
