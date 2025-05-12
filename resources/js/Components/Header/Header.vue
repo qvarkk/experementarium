@@ -49,36 +49,42 @@
 
 <template>
     <header>
-        <v-container>
-            <v-row>
-                <v-col class="montserrat-600">
-                    Lab.Zavr
-                </v-col>
-                <v-col class="montserrat-400">
-                    <v-btn-toggle
-                         v-model="activeSection"
-                         group
-                         class="border-md rounded-xl px-10"
+        <v-container class="d-flex justify-space-between">
+            <div class="montserrat-600">
+                Lab.Zavr
+            </div>
+            <div class="montserrat-400 w-50">
+                <v-btn-toggle
+                        v-model="activeSection"
+                        group
+                        class="border-lg rounded-xl w-100 d-flex justify-center"
+                >
+                    <v-btn 
+                        rounded="xl"
+                        density="compact"
+                        class="text-none"
+                        v-for="item in navItems" 
+                        :key="item.id"
+                        :value="item.id"
+                        @click="scrollToSection(item.id)"
                     >
-                        <v-btn 
-                            rounded="xl"
-                            density="compact"
-                            class="text-none"
-                            v-for="item in navItems" 
-                            :key="item.id"
-                            :value="item.id"
-                            @click="scrollToSection(item.id)"
-                        >
-                            {{ item.title }}
-                        </v-btn>
-                    </v-btn-toggle>
-                </v-col>
-            </v-row>
+                        {{ item.title }}
+                    </v-btn>
+                </v-btn-toggle>
+            </div>
         </v-container>
     </header>
 </template>
 
 <style scoped>
+    .montserrat-600{
+        font-size: 28px;
+    }
+
+    .montserrat-400{
+        font-size: 24px;
+    }
+
     /* Активная кнопка */
     .v-btn-toggle .v-btn.v-btn--active {
         background-color: black !important;  /* Красный */

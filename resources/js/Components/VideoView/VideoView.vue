@@ -1,12 +1,12 @@
 <template>
     <v-sheet class="d-flex flex-column justify-center align-center" >
-        <div class="d-flex flex-column justify-center align-center w-75">
-            <span class="text-h3 pb-7 alegreya-sc-regular text-center">Как работать с виртуальной лабораторией?</span>
+        <div class="">
+            <div class="text-h3 pb-7 alegreya-sc-regular text-center">Как работать с виртуальной<br>лабораторией?</div>
             <div class="rounded-xl border-md video-size"></div>
-            <span class="text-h6 pt-7 montserrat-400 text-center">
+            <div class="text-h6 pt-7 montserrat-400 text-center">
                 Станьте частью инновационного обучения — вместе<br>
                 мы открываем новые возможности для каждого<br>
-                ученика</span>
+                ученика</div>
         </div>
     </v-sheet>
 </template>

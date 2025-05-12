@@ -35,7 +35,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        margin: 5px;
+        margin: 4px;
         padding: 15px;
         border-radius: 20px;
         border-width: 2px;
