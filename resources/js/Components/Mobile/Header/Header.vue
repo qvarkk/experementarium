@@ -50,7 +50,7 @@
 <template>
     <header>
         <div @click="$inertia.get('/')" class="montserrat-600 cursor-pointer">
-            Lab.Zavr
+            ЛабЗавр
         </div>
     </header>
 </template>

@@ -51,7 +51,7 @@
     <header>
         <v-container class="d-flex justify-space-between">
             <div @click="$inertia.get('/')" class="montserrat-600 cursor-pointer">
-                Lab.Zavr
+                ЛабЗавр
             </div>
             <div v-if="!$page.url.startsWith('/game')" class="montserrat-400 w-50">
                 <v-btn-toggle
