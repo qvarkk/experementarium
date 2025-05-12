@@ -1,6 +1,19 @@
 <template>
   <MainLayout>
     <div ref="unityContainer" class="unity-container">
+        <div v-if="loadingProgress < 1" class="loading-overlay">
+        <div class="loading-progress">
+          <div class="progress-bar">
+            <div 
+              class="progress-fill" 
+              :style="{ width: `${loadingProgress * 100}%` }"
+            ></div>
+          </div>
+          <div class="progress-text">
+            Loading: {{ Math.round(loadingProgress * 100) }}%
+          </div>
+        </div>
+      </div>
       <canvas
         id="unity-canvas"
         ref="unityCanvas"
@@ -91,6 +104,7 @@ async function loadUnity() {
         // ... other config ...
       },
       (progress) => {
+        loadingProgress.value = progress;
         console.log(`Loading: ${Math.round(progress * 100)}%`)
       }
     )
@@ -119,5 +133,45 @@ function loadScript(src) {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 10;
+}
+
+.loading-progress {
+  width: 80%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 20px;
+  background-color: #333;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #4CAF50;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  color: white;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
 }
 </style>
